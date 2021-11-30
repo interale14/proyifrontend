@@ -1,0 +1,29 @@
+button.btn{
+  display:block;
+  font-size: 1em;
+  padding:1em;
+  font-weight: bold;
+  width:100%;
+  border: none;
+}
+button.btn.primary{
+  background-color: #FF5252;
+  color: #fff;
+}
+
+button.btn.secondary{
+  background-color: #B2EBF2;
+  color: #000;
+}
+
+button.mini{
+  display:block;
+  font-size: 0.5em;
+  padding:1em;
+  font-weight: bold;
+  width: 5vh;
+  height: 5vh;
+  border: none;
+  background-color: #eee;
+  color: #000;
+}
