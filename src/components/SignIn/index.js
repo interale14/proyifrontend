@@ -8,6 +8,7 @@ import Password from '../UI/Password';
 import Content from '../UI/Content';
 import { PrimaryButton } from '../UI/Button';
 
+import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 const getSecurity = ({ security }) => security;
@@ -16,46 +17,59 @@ const SignIn = () => {
   const [txtCorreo, setTxtCorreo] = useState("");
   const [txtPassword, setTxtPassword] = useState("");
 
+  const mailvalid = (mail) => {
+    return RegExp(/^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/).test(mail);
+  }
+
   const security = useSelector(getSecurity);
   const dispatch = useDispatch();
+  
+  const navigate = useNavigate();
 
   const onBtnClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    dispatch(
-      {
-        type: "SEC_SIGNIN_FETCH",
-        payload: null,
-      }
-    );
-    publicAxios.post(
-      '/api/sec/signin',
-      {
-        email: txtCorreo,
-        pswd: txtPassword,
-      }
-    )
-      .then(
-        ({data}) => {
-          console.log(data)
-          dispatch(
-            {
-              type: "SEC_SIGNIN_SUCCESS"
-            }
-          );
-        }
-      )
-      .catch(
-        (err) => {
-          console.log(err);
-          dispatch(
-            {
-              type: "SEC_SIGNIN_ERROR",
-              payload: err,
-            }
-          );
+    if(mailvalid(txtCorreo)){
+      dispatch(
+        {
+          type: "SEC_SIGNIN_FETCH",
+          payload: null,
         }
       );
+      publicAxios.post(
+        '/api/sec/signin',
+        {
+          email: txtCorreo,
+          pswd: txtPassword,
+        }
+      )
+        .then(
+          ({data}) => {
+            console.log(data)
+            dispatch(
+              {
+                type: "SEC_SIGNIN_SUCCESS"
+              }
+            );
+            navigate('/login',{replace:true});
+          }
+        )
+        .catch(
+          (err) => {
+            console.log(err);
+            dispatch(
+              {
+                type: "SEC_SIGNIN_ERROR",
+                payload: err,
+              }
+            );
+          }
+        );
+    }
+    else{
+      alert("Ingrese un correo con una sintaxis válida.");
+      setTxtCorreo("");
+    }
   };
   
   const onChangeHandler = (e) => {

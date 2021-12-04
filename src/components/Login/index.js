@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { publicAxios } from '../../store/utils/Axios';
 
 import Page from '../Page';
@@ -7,27 +7,10 @@ import TextBox from '../UI/TextBox';
 import Password from '../UI/Password';
 import Content from '../UI/Content';
 import { PrimaryButton } from '../UI/Button';
-
 import { useSelector, useDispatch} from 'react-redux';
 
 const getSecurity = ({security})=>security;
 const Login = ()=>{
-  /*
-    Ciclo de Vida de un Componente de React
-    ---------------------------------------
-    virtualDOM -- copia del DOM
-    DOM
-    ---------------------------------------
-    componentWillMount
-    componentDidMount
-    render
-    componentWillUpdate
-    componentDidUpdate
-    componentWillUnmount
-    componentDidUnmount
-    ---------------------------------------
-
-  */
   const [txtCorreo, setTxtCorreo] = useState("");
   const [txtPassword, setTxtPassword] = useState("");
 
@@ -59,7 +42,7 @@ const Login = ()=>{
             payload: data,
           }
         );
-        navigate('/dashboard',{replace:true});
+        navigate('/inicio',{replace:true});
       }
     )
     .catch(
@@ -114,7 +97,7 @@ const Login = ()=>{
             </div>
           ))
         }
-
+        <div><Link to="/restablecer">¿Olvidó su contraseña?</Link></div>
       </Content>
     </Page>
   );

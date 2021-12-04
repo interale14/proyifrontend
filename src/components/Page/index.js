@@ -15,7 +15,6 @@ const Page = ({children, className, showHeader, showNavBar, title})=>{
   }
   if (showNavBar) {
     classNames.push("with_navbar");
-    //navBar = (<div style={{ backgroundColor: "#000", color: "#FFF", minHeight: "64px" }}></div>);
     navBar = (<NavBar/>);
   }
 

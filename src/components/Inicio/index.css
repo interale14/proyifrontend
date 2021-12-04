@@ -1,0 +1,10 @@
+.imglogo {
+    padding: 1em;;
+    width: 90vw;
+}
+
+.imgcont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
